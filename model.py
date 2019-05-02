@@ -6,6 +6,8 @@ import keras.models as km
 def build_model(image_shape=(299, 299, 3), embedding_length=128):
     backbone = kai.InceptionV3(input_shape=image_shape, include_top=False)
     
+    backbone.trainable = False
+    
     x = kl.GlobalMaxPooling2D()(backbone.output)
     x = kl.Dense(embedding_length * 4)(x)
     x = kl.Dense(embedding_length * 2)(x)
