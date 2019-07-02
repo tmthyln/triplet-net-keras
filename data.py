@@ -3,6 +3,7 @@ import itertools
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import skimage.transform
 
 
 BEE_TYPES = ['bumble', 'carpenter', 'honey', 'mason', 'mining', 'yellowface']
@@ -28,15 +29,18 @@ class BeeLoader(object):
             
         return np.stack(images, axis=0)
 
-    def load_resized_image(self, filename, size=(299, 299)):
+    @staticmethod
+    def load_resized_image(filename, size=299):
         raw = plt.imread(filename)
-        
-        # TODO add padding instead of stretching
-        return cv2.resize(raw, size, interpolation=cv2.INTER_LINEAR)
+
+        curr_crop = skimage.transform.rescale(raw, size / max(len(raw), len(raw[0])),
+                                              mode='constant', multichannel=True)
+        return np.pad(curr_crop, ((0, size - len(curr_crop)), (0, size - len(curr_crop[0])), (0, 0)),
+                      mode='constant')
 
     def generator(self, batch_size):
         
-        assert batch_size > 3, 'batch size must be at least 3 (enough for at least 1 triplet'
+        assert batch_size >= 3, 'batch size must be at least 3 (enough for at least 1 triplet'
         
         pos_pair_index = 0
         while True:
@@ -54,6 +58,8 @@ class BeeLoader(object):
                 filenames_in_batch.append(self.all[i])
                 types_in_batch.append(BEE_TYPES.index(''.join(itertools.takewhile(str.isalpha, self.all[i]))))
             
+            # load images from file names, return (x, y)
             yield self.load_batch_from_files(filenames_in_batch), np.array(types_in_batch)
             
+            # change the species we're using for the positive pair
             pos_pair_index = (pos_pair_index + 1) % len(BEE_TYPES)

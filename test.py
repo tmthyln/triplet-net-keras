@@ -12,6 +12,7 @@ if __name__ == '__main__':
         print('ids: ', ids)
         plt.imshow(images[0])
         plt.show()
+        break
     
     bee_model = build_model()
     with open('model_summary.txt', 'w') as f:

@@ -3,6 +3,14 @@ import keras.layers as kl
 import keras.models as km
 
 
+def triplet_loss_all():
+    
+    def loss(y_true, y_pred):
+        pass
+    
+    return loss
+
+
 def build_model(image_shape=(299, 299, 3), embedding_length=128):
     backbone = kai.InceptionV3(input_shape=image_shape, include_top=False)
     
@@ -12,7 +20,7 @@ def build_model(image_shape=(299, 299, 3), embedding_length=128):
     embedding = kl.Dense(embedding_length, name='embedding')(x)
     
     model = km.Model(inputs=[backbone.input], outputs=[embedding])
-    model.compile('sgd', loss='mse')
+    model.compile('sgd', loss=triplet_loss_all())
     
     return model
 

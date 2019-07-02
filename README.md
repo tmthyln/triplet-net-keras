@@ -36,6 +36,7 @@ Loss Function
 -------------
 The version of triplet loss that is used is the online version (no prior triplet
 mining). This is implemented in TensorFlow. This is for a few reasons:
+* higher accuracy with faster training time (see FaceNet paper)
 * the training model and the inference model are the same
 * we can care less about which images go into each batch
 * no need to store anything about the triplets beforehand
@@ -49,3 +50,9 @@ TensorFlow API only)
 
 Training
 --------
+
+Evaluation
+----------
+
+Visualization
+-------------
