@@ -7,7 +7,7 @@ from model import build_model
 
 if __name__ == '__main__':
     bee_data = BeeLoader()
-    for images, ids in bee_data.generator(6):
+    for i, (images, ids) in enumerate(bee_data.generator(6)):
         print('images shape: ', images.shape)
         print('ids: ', ids)
         plt.imshow(images[0])
