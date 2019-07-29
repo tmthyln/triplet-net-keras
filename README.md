@@ -1,4 +1,4 @@
-Triplet Loss Network in Keras (with TensorFlow backend)
+In Development: Triplet Loss Network in Keras (with TensorFlow backend)
 =======================================================
 A quick implementation of a triplet network with an online (batch-based) triplet
 loss (in Keras).
