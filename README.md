@@ -1,3 +1,5 @@
+Since the class pivoted away from the Medium articles style of teaching, this project will not be completed.
+
 In Development: Triplet Loss Network in Keras (with TensorFlow backend)
 =======================================================
 A quick implementation of a triplet network with an online (batch-based) triplet
